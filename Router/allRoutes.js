@@ -19,3 +19,5 @@ export const allRoutes = [
 //Le titre s'affiche comme ceci : Route.titre - websitename
 
 export const websiteName = "restaurant";
+
+test
