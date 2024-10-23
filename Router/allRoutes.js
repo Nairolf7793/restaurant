@@ -20,4 +20,3 @@ export const allRoutes = [
 
 export const websiteName = "restaurant";
 
-test
