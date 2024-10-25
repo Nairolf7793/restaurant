@@ -16,9 +16,10 @@ function validateForm(){ //fonction pour valider les champs du formulaire, = ver
     const nomOk = validateRequired(inputNom);
     const prenomOk = validateRequired(inputPrenom);
     const mailOk = validateMail(inputEmail);
+    const passwordOk = validatePassword(inputPassword);
 
     //activer le bouton inscription si les champs sont tous ok
-    if(nomOk && prenomOk && mailOk){
+    if(nomOk && prenomOk && mailOk && passwordOk){
         btnValidation.disabled = false;
     }
     else{
@@ -28,7 +29,7 @@ function validateForm(){ //fonction pour valider les champs du formulaire, = ver
 
 //creation fonction pour vérifier si mon input mail respecte le format du mail
 function validateMail(input){
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //regex = caractère du mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //regex = caractères speciaux du mail
     const mailUser = input.value;
     if(mailUser.match(emailRegex)){ //fonction match permet de vérifier que le regex est bien présent
         input.classList.add("is-valid");
@@ -41,6 +42,23 @@ function validateMail(input){
         return false;
     }
 }
+
+//creation fonction pour validation password
+function validatePassword(input){
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/; //regex = caractères speciaux
+    const passwordUser = input.value;
+    if(passwordUser.match(passwordRegex)){ //fonction match permet de vérifier que le regex est bien présent
+        input.classList.add("is-valid");
+        input.classList.remove("is-invalid");
+        return true;
+    }
+    else {
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
+        return false;
+    }
+}
+
 
 function validateRequired(input){
     if(input.value !=""){ //champs formulaire ok
