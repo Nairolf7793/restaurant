@@ -17,9 +17,10 @@ function validateForm(){ //fonction pour valider les champs du formulaire, = ver
     const prenomOk = validateRequired(inputPrenom);
     const mailOk = validateMail(inputEmail);
     const passwordOk = validatePassword(inputPassword);
+    const passwordConfirmOk = validateConfirmationPassword(inputPassword, inputValidationPassword);
 
     //activer le bouton inscription si les champs sont tous ok
-    if(nomOk && prenomOk && mailOk && passwordOk){
+    if(nomOk && prenomOk && mailOk && passwordOk && passwordConfirmOk){
         btnValidation.disabled = false;
     }
     else{
@@ -43,9 +44,25 @@ function validateMail(input){
     }
 }
 
+// fonction pour confirmer / valider le mot de passe 
+
+function validateConfirmationPassword(inputPwd, inputConfirmPwd){
+    if(inputPwd.value == inputConfirmPwd.value){
+        inputConfirmPwd.classList.add("is-valid");
+        inputConfirmPwd.classList.remove("is-invalid");
+        return true;
+    }
+    else{
+        inputConfirmPwd.classList.add("is-invalid");
+        inputConfirmPwd.classList.remove("is-valid");
+        return false;
+    }
+}
+
+
 //creation fonction pour validation password
 function validatePassword(input){
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/; //regex = caractères speciaux
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{12,}$/; //regex = caractères speciaux // 12 caractères = reco de la CNIL
     const passwordUser = input.value;
     if(passwordUser.match(passwordRegex)){ //fonction match permet de vérifier que le regex est bien présent
         input.classList.add("is-valid");
@@ -58,6 +75,7 @@ function validatePassword(input){
         return false;
     }
 }
+
 
 
 function validateRequired(input){
