@@ -49,7 +49,7 @@ const LoadContentPage = async () => {
   // Récupération de l'URL actuelle
 
   const actualRoute = getRouteByUrl(path);
-  console.log(actualRoute);
+
 
   // Récupération du contenu HTML de la route
 
