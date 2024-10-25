@@ -49,6 +49,7 @@ const LoadContentPage = async () => {
   // Récupération de l'URL actuelle
 
   const actualRoute = getRouteByUrl(path);
+  console.log(actualRoute);
 
   // Récupération du contenu HTML de la route
 
@@ -62,6 +63,7 @@ const LoadContentPage = async () => {
   // Ajout du contenu JavaScript
 
   if (actualRoute.pathJS != "") {
+    console.log("Chargement du script :", actualRoute.pathJS);
 
     // Création d'une balise script
 
