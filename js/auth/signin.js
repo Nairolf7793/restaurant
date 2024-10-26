@@ -7,7 +7,7 @@ btnSignin.addEventListener ("click", checkCredentials);
 function checkCredentials(){
     if(mailInput.value == "test@mail.fr" && passwordInput.value == "azerty"){
         const token = "flsdhlfhdslfhvbfnxbjndxk!vbf";
-
+        setToken(token);
         window.location.replace("/");
     }
     else {
