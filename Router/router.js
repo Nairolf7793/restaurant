@@ -83,6 +83,9 @@ const LoadContentPage = async () => {
 
   document.title = actualRoute.title + " - " + websiteName;
 
+  //afficher et masquer les élements en fonction du role
+  showAndHideElementsForRoles();
+
 };
 
 
