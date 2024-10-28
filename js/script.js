@@ -4,6 +4,7 @@ const roleCookieName = "role";
 
 signoutBtn.addEventListener("click", signout);
 
+
 function getRole(){ //definir le role dans le cookie
     return getCookie(roleCookieName);
 }
@@ -95,3 +96,4 @@ function isConnected(){
         tempHtml.textContent = text;
         return tempHtml.innerHTML;
     }
+

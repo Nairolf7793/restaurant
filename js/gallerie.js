@@ -1,11 +1,16 @@
-alert ("toto");
 
 const galerieImage = document.getElementById("allImages");
 let monImage = getImage("titre", "../images/meal.jpg")
 
+let titre = 
+
 galerieImage.innerHTML = monImage;
 
+
+
 function getImage(titre, urlImage){
+    titre = sanitizeHtml (titre);
+    urlImage = sanitizeHtml (urlImage);
     return `<div class="col">
             <div class="image-card text-black text-center">
                 <img src="${urlImage}" class="rounded w-100"/>
