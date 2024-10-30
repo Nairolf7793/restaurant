@@ -4,6 +4,7 @@ const inputEmail = document.getElementById("EmailInput");
 const inputPassword = document.getElementById("PasswordInput");
 const inputValidationPassword = document.getElementById("ValidatePasswordInput");
 const btnValidation = document.getElementById("BtnValidationInscription");
+const formInscription = document.getElementById("formulaireInscription"); // récupérer les données de dmon formulaire
 
 
 inputNom.addEventListener("keyup", validateForm); //keyup fonctionne dès qu'on relache la touche du clavier, but est de passer le form en validé
@@ -78,8 +79,6 @@ function validatePassword(input){
     }
 }
 
-
-
 function validateRequired(input){
     if(input.value !=""){ //champs formulaire ok
         input.classList.add("is-valid");
@@ -93,28 +92,43 @@ function validateRequired(input){
     }
 }
 
-//
+//fonction pour récuperer les elements du formulaire inscription
 
 function InscrireUtilisateur(){
-    const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
 
-const raw = JSON.stringify({
-  "firstName": "Testpostman",
-  "lastName": "Testpostmanfetch",
-  "email": "testfetch@email.com",
-  "password": "azerty11"
-});
+    let dataForm = new FormData(formInscription);
+    let name = dataForm.get("name");
 
-const requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow"
-};
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json"); 
 
-fetch("http://127.0.0.1:8000/api/registration", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error));
-}
+    let raw = JSON.stringify({ //permet de renvoyer les informations en format json
+        "firstName": dataForm.get("nom"), 
+        "lastName": dataForm.get("prenom"),
+        "email": dataForm.get("email"),
+        "password": dataForm.get("mdp")
+    });
+
+    let requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    fetch("http://127.0.0.1:8000/api/registration", requestOptions)
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            else{
+                alert("erreur d'inscription");
+            }
+        })
+        .then(result => {
+            alert("votre compte est bien crée");
+            document.location.href="/signin";
+        })
+
+        .catch((error) => console.error(error));
+    }
