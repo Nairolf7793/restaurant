@@ -1,7 +1,7 @@
 const mailInput = document.getElementById ("EmailInput");
 const passwordInput = document.getElementById ("PasswordInput");
 const btnSignin = document.getElementById ("BtnSignin");
-const signinForm = document.getElementById ("siginForm")
+const signinForm = document.getElementById ("signinForm")
 
 btnSignin.addEventListener ("click", checkCredentials);
 
