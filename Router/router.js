@@ -5,7 +5,7 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 
 // Création d'une route pour la page 404 (page introuvable)
 
-const route404 = new Route("404", "Page introuvable", "/pages/404.html");
+const route404 = new Route("404", "Page introuvable", "/pages/404.html", []);
 
 
 // Fonction pour récupérer la route correspondant à une URL donnée
@@ -50,6 +50,25 @@ const LoadContentPage = async () => {
 
   const actualRoute = getRouteByUrl(path);
 
+  //vérifier les droits d'acces à la page
+
+  const AllRolesArray = actualRoute.authorize;
+
+  if(AllRolesArray.length > 0){
+    if(AllRolesArray.includes("disconnected")){
+      if(isConnected()){
+        window.location.replace("/");
+      }
+    }
+    else {
+      const roleUser = getRole();
+      if(!AllRolesArray.includes(roleUser)){
+        window.location.replace("/");
+
+      }
+    }
+  }
+
   // Récupération du contenu HTML de la route
 
   const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
@@ -61,7 +80,7 @@ const LoadContentPage = async () => {
 
   // Ajout du contenu JavaScript
 
-  if (actualRoute.pathJS != "") {
+  if (actualRoute.pathJs != "") {
 
     // Création d'une balise script
 
@@ -69,7 +88,7 @@ const LoadContentPage = async () => {
 
     scriptTag.setAttribute("type", "text/javascript");
 
-    scriptTag.setAttribute("src", actualRoute.pathJS);
+    scriptTag.setAttribute("src", actualRoute.pathJs);
 
 
     // Ajout de la balise script au corps du document
@@ -81,6 +100,9 @@ const LoadContentPage = async () => {
   // Changement du titre de la page
 
   document.title = actualRoute.title + " - " + websiteName;
+
+  //afficher et masquer les élements en fonction du role
+  showAndHideElementsForRoles();
 
 };
 
@@ -115,3 +137,4 @@ window.route = routeEvent;
 // Chargement du contenu de la page au chargement initial
 
 LoadContentPage();
+
