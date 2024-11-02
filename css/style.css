@@ -1,6 +1,12 @@
+.hero-scene{
+    background-image: url(../images/dinner.jpg);
+    background-size: cover;
+
+}
+
+
 .image-card {
     position: relative;
-
 }
 
 .action-image-buttons{
